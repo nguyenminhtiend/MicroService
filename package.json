@@ -1,0 +1,73 @@
+{
+  "name": "messi",
+  "version": "1.0.0",
+  "description": "Nodejs boilerplate",
+  "main": "src/index.js",
+  "scripts": {
+    "dev-user": "NODE_ENV=development nodemon src/shared/startService.js User",
+    "dev-auth": "NODE_ENV=development nodemon src/shared/startService.js Auth",
+    "start": "NODE_ENV=production node src/index.js",
+    "start-user": "node src/shared/startService.js User",
+    "test-user": "NODE_ENV=test mocha tests/setup tests/user/**/*.spec.js --User --exit",
+    "db-auth:migrate": "NODE_ENV=development sequelize --options-path ./src/auth/config/sequelize.js db:migrate",
+    "db-user:migrate": "NODE_ENV=development sequelize --options-path ./src/user/config/sequelize.js db:migrate",
+    "lint": "prettier --write '**/*.js' && eslint --fix '**/*.js'",
+    "docker-build": "docker build -t nguyenminhtiend/messi .",
+    "docker-build-department": "docker build -f Dockerfile-department -t nguyenminhtiend/messi-department .",
+    "docker-build-user": "docker build -f src/user/Dockerfile -t user-service .",
+    "docker-run": "docker run -p 3000:3000 messi",
+    "docker-run-department": "docker run -p 3001:3001 nguyenminhtiend/messi-department",
+    "docker-push": "docker push nguyenminhtiend/messi"
+  },
+  "author": "Tien Nguyen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenminhtiend/Messi.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^6.12.0",
+    "ajv-keywords": "^3.4.1",
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "helmet": "^3.21.3",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "ms": "^2.1.2",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.5",
+    "uuid": "^7.0.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "chai-like": "^1.1.1",
+    "dotenv": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "mocha": "^7.1.1",
+    "nodemon": "2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
