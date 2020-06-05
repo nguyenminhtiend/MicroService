@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
-const { User } = require('../../models');
-const { AppError } = require('../../../shared/utils');
-const generateToken = require('../../service/generateToken');
+const moment = require('moment');
+const { User, RefreshToken } = require('../../../models');
+const { AppError } = require('../../../../shared/utils');
+const generateToken = require('../../../service/generateToken');
 
 const signinPassword = async ({ username, password }) => {
   const user = await User.findOne({
@@ -18,9 +19,14 @@ const signinPassword = async ({ username, password }) => {
     exp: Math.floor(Date.now() / 1000) + 60 * 60 * 3600
   };
 
-  const token = await generateToken(jwtData);
+  const accessToken = await generateToken(jwtData);
+  const refreshToken = await RefreshToken.create({
+    userId: user.id,
+    expireAt: moment().add(30, 'days')
+  });
   return {
-    token
+    accessToken,
+    refreshToken: refreshToken.id
   };
 };
 

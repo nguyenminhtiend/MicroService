@@ -12,5 +12,12 @@ module.exports = (app) => {
     asyncRoute(signinController.password)
   );
 
+  router.get(
+    '/request-google-login',
+    asyncRoute(signinController.requestGoogleLogin)
+  );
+
+  router.post('/google', asyncRoute(signinController.signinGoogle));
+
   app.use('/signin', router);
 };
