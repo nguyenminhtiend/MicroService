@@ -12,5 +12,9 @@ module.exports = (app) => {
     asyncRoute(signupController.password)
   );
 
+  router.get('/password', (req, res) => {
+    res.send(`Hello world password`);
+  });
+
   app.use('/signup', router);
 };

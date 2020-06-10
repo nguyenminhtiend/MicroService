@@ -4,24 +4,24 @@ if (['development', 'test'].includes(NODE_ENV)) {
 }
 
 const {
-  USER_DB_HOST,
-  USER_DB_USERNAME,
-  USER_DB_PASSWORD,
-  USER_DB_DATABASE,
-  USER_DB_PORT,
-  USER_DB_LOGGING
+  AUTH_DB_HOST,
+  AUTH_DB_USERNAME,
+  AUTH_DB_PASSWORD,
+  AUTH_DB_DATABASE,
+  AUTH_DB_PORT,
+  AUTH_DB_LOGGING
 } = process.env;
 
 const db = {
-  host: USER_DB_HOST,
-  username: USER_DB_USERNAME,
-  password: USER_DB_PASSWORD,
-  database: USER_DB_DATABASE,
-  port: USER_DB_PORT,
+  host: AUTH_DB_HOST,
+  username: AUTH_DB_USERNAME,
+  password: AUTH_DB_PASSWORD,
+  database: AUTH_DB_DATABASE,
+  port: AUTH_DB_PORT,
   dialect: 'mysql'
 };
 
-if (!USER_DB_LOGGING) {
+if (!AUTH_DB_LOGGING) {
   db.logging = false;
 }
 

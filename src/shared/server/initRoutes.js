@@ -11,6 +11,9 @@ module.exports = (app, serviceName) => {
     const relativePath = `./${path.relative(__dirname, fullPath)}`;
     require(relativePath)(router); //eslint-disable-line
   });
+  // app.get(`/*`, (req, res) => {
+  //   res.send(`Hello ${serviceName} service ${req.method} ${req.url}`);
+  // });
 
   app.use(`/${serviceName}`, router);
 };

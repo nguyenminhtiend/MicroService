@@ -8,7 +8,9 @@ const authenticate = (token) => {
   if (!token) throw new AppError('Missing token', 401);
   let decoded;
   try {
-    decoded = jwt.verify(token, PUBLIC_KEY, { algorithm: 'RS256' });
+    decoded = jwt.verify(token, PUBLIC_KEY.replace(/\\n/gm, '\n'), {
+      algorithm: 'RS256'
+    });
   } catch (err) {
     throw new AppError(err.message, 401);
   }
